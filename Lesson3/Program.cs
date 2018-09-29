@@ -4,73 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lesson3
+namespace L3Task2
 {
-    struct Complex
-    {
-        public double im;
-        public double re;
-        // в C# в структурах могут храниться также действия над данными
-        public Complex Plus(Complex x)
-        {
-            Complex y;
-            y.im = im + x.im;
-            y.re = re + x.re;
-            return y;
-        }
-        // Пример произведения двух комплексных чисел//
-        public Complex Multi(Complex x)
-        {
-            Complex y;
-            y.im = re * x.im + im * x.re;
-            y.re = re * x.re - im * x.im;
-            return y;
-        }
-        // разность двух комплексных чисел
-        public Complex Minus(Complex x)
-        {
-            Complex y;
-            y.im = im - x.im;
-            y.re = re - x.re;
-            return y;
-        }
-        // деление двух комплексных чисел
-        public Complex Divide(Complex x)
-        {
-            Complex y;
-            y.re = ((re * x.re) + (im * x.im)) / (Math.Pow(x.re,2) + Math.Pow(x.im,2));
-            y.im = ((im * x.re) - (re * x.im)) / (Math.Pow(x.re,2) + Math.Pow(x.im,2));
-          
-            return y;
-        }
-            public string ToString()
-        {
-            return im > 0 ? re + "+" + im + "i" : im < 0 ? re + "" + im + "i":re+"";
-            
-        }
-    }
     class Program
     {
         static void Main(string[] args)
         {
-            Complex complex1;
-            complex1.re = 1;
-            complex1.im = 1;
-            Complex complex2;
-            complex2.re = 2;
-            complex2.im = 2;
-            Complex result = complex1.Plus(complex2);
-            Console.WriteLine(result.ToString());
-            result = complex1.Multi(complex2);
-            Console.WriteLine(result.ToString());
-            result = complex1.Minus(complex2);
-            Console.WriteLine(result.ToString());
-            result = complex2.Minus(complex1);
-            Console.WriteLine(result.ToString());
-            result = complex1.Divide(complex2);
-            Console.WriteLine(result.ToString());
-            result = complex2.Divide(complex1);
-            Console.WriteLine(result.ToString());
+            //2.а) С клавиатуры вводятся числа, пока не будет введен 0(каждое число в новой строке).Требуется подсчитать сумму всех нечетных положительных чисел. 
+            //Сами числа и сумму вывести на экран, используя tryParse;
+            //б) Добавить обработку исключительных ситуаций на то, что могут быть введены некорректные данные.
+            //При возникновении ошибки вывести сообщение.Напишите соответствующую функцию;
+            double a;
+            string str="\n";
+            double sum = 0;
+            bool  flag;
+            Console.WriteLine("Вводите числа с клавиатуры \nдля подсчета суммы всех нечетных и положительных чисел \nДля окончания ввода введите \"0\"");
+            do
+            {
+                do
+                {
+                    Console.WriteLine("Введите число");
+                    
+                    flag = double.TryParse(Console.ReadLine(), out a);
+                }
+                while (!flag);
+
+                if (a > 0 && a % 2 != 0)
+                {
+                    sum = sum + a;
+                    str = str + a + "\n";
+                }
+            }
+            while (a != 0);
+            Console.WriteLine($"Сумаа всех введенных нечетных и положительных чисел будет равна {sum}");
+            Console.WriteLine($"Все введенные нечетные и положительные числа: {str}");
             Console.ReadLine();
         }
     }
